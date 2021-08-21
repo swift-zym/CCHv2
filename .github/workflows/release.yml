@@ -16,7 +16,7 @@ jobs:
 
     - name: Pack
       uses: actions/setup-node@master
-      run: |
+    - run: |
         npm install -g nw-builder
         nwbuild -p win64 osx64 linux64
         ls -R build
