@@ -14,6 +14,13 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
     
+    - name: Get the version
+      id: get_version
+      shell: bash
+      run: |
+        VERSION=${GITHUB_REF/refs\/tags\//}
+        echo ::set-output name=VERSION::$VERSION
+    
     - name: Setup node
       uses: actions/setup-node@master
     
@@ -24,11 +31,11 @@ jobs:
     
     - name: Pack
       run: |
-        zip -r CCHv2.alpha.${{ github.run_id }}.win32.zip . -i "build/CodeForces Contest Helper/win32/*"
-        zip -r CCHv2.alpha.${{ github.run_id }}.win64.zip . -i "build/CodeForces Contest Helper/win64/*"
-        zip -r CCHv2.alpha.${{ github.run_id }}.osx64.zip . -i "build/CodeForces Contest Helper/osx64/*"
-        zip -r CCHv2.alpha.${{ github.run_id }}.linux32.zip . -i "build/CodeForces Contest Helper/linux32/*"
-        zip -r CCHv2.alpha.${{ github.run_id }}.linux64.zip . -i "build/CodeForces Contest Helper/linux64/*"
+        zip -r CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.win32.zip . -i "build/CodeForces Contest Helper/win32/*"
+        zip -r CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.win64.zip . -i "build/CodeForces Contest Helper/win64/*"
+        zip -r CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.osx64.zip . -i "build/CodeForces Contest Helper/osx64/*"
+        zip -r CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.linux32.zip . -i "build/CodeForces Contest Helper/linux32/*"
+        zip -r CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.linux64.zip . -i "build/CodeForces Contest Helper/linux64/*"
     
     - name: Create Release
       uses: softprops/action-gh-release@v1
@@ -36,11 +43,11 @@ jobs:
         draft: false
         prerelease: true
         files: |
-          CCHv2.alpha.${{ github.run_id }}.win32.zip
-          CCHv2.alpha.${{ github.run_id }}.win64.zip
-          CCHv2.alpha.${{ github.run_id }}.osx64.zip
-          CCHv2.alpha.${{ github.run_id }}.linux32.zip
-          CCHv2.alpha.${{ github.run_id }}.linux64.zip
+          CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.win32.zip
+          CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.win64.zip
+          CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.osx64.zip
+          CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}.linux32.zip
+          CCHv2.alpha.${{ steps.get_version.outputs.VERSION }}linux64.zip
         name: CCHv2 Alpha ${{ github.run_id }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
