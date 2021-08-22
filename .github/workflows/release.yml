@@ -24,12 +24,11 @@ jobs:
     
     - name: Pack
       run: |
-        ls "build/CodeForces Contest Helper/win32"
-        zip -r CCHv2.alpha.${{ github.run_id }}.win32.zip "build/CodeForces Contest Helper/win32/*"
-        zip -r CCHv2.alpha.${{ github.run_id }}.win64.zip "build/CodeForces Contest Helper/win64/*"
-        zip -r CCHv2.alpha.${{ github.run_id }}.osx64.zip "build/CodeForces Contest Helper/osx64/*"
-        zip -r CCHv2.alpha.${{ github.run_id }}.linux32.zip "build/CodeForces Contest Helper/linux32/*"
-        zip -r CCHv2.alpha.${{ github.run_id }}.linux64.zip "build/CodeForces Contest Helper/linux64/*"
+        zip -r CCHv2.alpha.${{ github.run_id }}.win32.zip . -i "build/CodeForces Contest Helper/win32/*"
+        zip -r CCHv2.alpha.${{ github.run_id }}.win64.zip . -i "build/CodeForces Contest Helper/win64/*"
+        zip -r CCHv2.alpha.${{ github.run_id }}.osx64.zip . -i "build/CodeForces Contest Helper/osx64/*"
+        zip -r CCHv2.alpha.${{ github.run_id }}.linux32.zip . -i "build/CodeForces Contest Helper/linux32/*"
+        zip -r CCHv2.alpha.${{ github.run_id }}.linux64.zip . -i "build/CodeForces Contest Helper/linux64/*"
     
     - name: Create Tag
       uses: tvdias/github-tagger@v0.0.1
