@@ -14,6 +14,15 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Create Tag
+      uses: tvdias/github-tagger@v0.0.1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        tag: Alpha${{ github.run_id }}
+    
+    - run: |
+        git tag Alpha${{ github.run_id }}
+    
     - name: Setup node
       uses: actions/setup-node@master
     
@@ -30,10 +39,6 @@ jobs:
         zip -r CCHv2.alpha.${{ github.run_id }}.linux32.zip . -i "build/CodeForces Contest Helper/linux32/*"
         zip -r CCHv2.alpha.${{ github.run_id }}.linux64.zip . -i "build/CodeForces Contest Helper/linux64/*"
     
-    - name: Create Tag
-      run: |
-        git tag Alpha${{ github.run_id }}
-
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
