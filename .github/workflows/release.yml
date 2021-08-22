@@ -24,6 +24,7 @@ jobs:
     
     - name: Pack
       run: |
+        ls "build/CodeForces Contest Helper/win32"
         zip -r CCHv2.alpha.${{ github.run_id }}.win32.zip "build/CodeForces Contest Helper/win32/*"
         zip -r CCHv2.alpha.${{ github.run_id }}.win64.zip "build/CodeForces Contest Helper/win64/*"
         zip -r CCHv2.alpha.${{ github.run_id }}.osx64.zip "build/CodeForces Contest Helper/osx64/*"
